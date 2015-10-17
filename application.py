@@ -12,13 +12,27 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/admin')
+@app.route('/admin/')
 def admin():
-    return 'This the admin page.'
+    return render_template('admin.html')
 
-@app.route('/booth')
-def booth():
-    return 'This is a booth page'
+@app.route('/<name>/')
+def booth(name=None):
+    return render_template('booth.html', name=name)
+
+
+@app.route('/<name>/admin/')
+def boothAdmin(name=None):
+    return render_template('booth-admin.html', name=name)
+
+@app.route('/<name>/<item>/')
+def item(name=None, item=None):
+    return render_template('item.html', name=name, item=item)
+
+
+@app.route('/login/')
+def login():
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug='True', host='0.0.0.0', port=8000)
