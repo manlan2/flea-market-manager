@@ -1,17 +1,24 @@
-from flask import Flask
-from flask import render_template
-from flask import url_for
-from flask import request
-from flask import redirect
-from flask import session
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from sqlalchemy import create_engine, asc
+from sqlalchemy.orm import sessionmaker
 from db_model import Base, Items, Booths
+
 
 app = Flask(__name__)
 
 
+# Connect to database and create session
+engine = create_engine('sqlite:///fleamarket.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    booths = session.query(Booths).order_by(asc(Booths.name))
+    return render_template('index.html', booths=booths)
 
 @app.route('/admin/')
 def admin():
