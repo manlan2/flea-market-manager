@@ -4,6 +4,7 @@ from flask import url_for
 from flask import request
 from flask import redirect
 from flask import session
+from db_model import Base, Items, Booths
 
 app = Flask(__name__)
 
