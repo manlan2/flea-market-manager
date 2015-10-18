@@ -23,6 +23,7 @@ The Franklin Flea Market app will display what is available at the various booth
 
 * Update README to include installation and use instructions
 * Create database schema
+* Create test data for app
 * Create folder structure
 * Create page list
 * Create routes from page list
