@@ -21,10 +21,6 @@ def index():
     items = session.query(Items).order_by(asc(Items.name))
     return render_template('index.html', booths=booths, items=items)
 
-@app.route('/admin/')
-def admin():
-    return render_template('admin.html')
-
 
 @app.route('/booths/')
 def booths():
@@ -35,10 +31,6 @@ def booths():
 def booth(name=None):
     return render_template('booth.html', name=name)
 
-
-@app.route('/<name>/admin/')
-def boothAdmin(name=None):
-    return render_template('booth-admin.html', name=name)
 
 @app.route('/<name>/<item>/')
 def item(name=None, item=None):
