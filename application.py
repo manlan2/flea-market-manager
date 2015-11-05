@@ -18,8 +18,7 @@ session = DBSession()
 @app.route('/')
 def index():
     booths = session.query(Booths).order_by(asc(Booths.name))
-    items = session.query(Items).order_by(asc(Items.name))
-    return render_template('index.html', booths=booths, items=items)
+    return render_template('index.html', booths=booths)
 
 
 @app.route('/booths/')

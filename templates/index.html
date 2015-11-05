@@ -1,17 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>Hello, World!</h1>
-<div>
-  <ul>
-    {% for item in items %}
-    <li>{{ item.name }}</li>
-    {% endfor %}
-  </ul>
-
-
+<div class="">
+  {% for booth in booths %}
+  <h3>{{ booth.name }}</h3>
+  {% endfor %}
 </div>
-{% for booth in booths %}
-<h3>{{ booth.name }}</h3>
-{% endfor %}
 
 {% endblock %}
