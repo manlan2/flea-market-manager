@@ -1,5 +1,14 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>Booth Page for {{ name }}</h1>
+<h1>Booth Page for {{ booth.name }}</h1>
+<a href="{{ url_for('addItem', booth_id=booth.id)}}">New Item</a>
+
+{% for item in items %}
+<h3>{{item.name}}</h3>
+<p>{{ item.description }}</p>
+{{ item.price }}
+<p><a href="">Edit</a>  <a href="">Delete</a></p>
+
+{% endfor %}
 
 {% endblock %}

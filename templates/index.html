@@ -2,7 +2,7 @@
 {% block body %}
 <div class="">
   {% for booth in booths %}
-  <h3>{{ booth.name }}</h3>
+  <a href="{{ url_for('booth', booth_id=booth.id) }}"><h3>{{ booth.name }}</h3></a>
   {% endfor %}
 </div>
 
