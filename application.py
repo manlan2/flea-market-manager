@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask
+from flask import render_template
+from flask import request
+from flask import redirect
+from flask import jsonify
+from flask import url_for
+from flask import flash
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from db_model import Base, Items, Booths
@@ -14,11 +20,12 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+
 # Show all booths and link to all items. Home page of app.
 @app.route('/')
 @app.route('/booths/')
 def index():
-    ''' Add comment here ''' #TODO: Add comment
+    ''' Add comment here '''
     booths = session.query(Booths).order_by(asc(Booths.name))
     items = session.query(Items).limit(10)
     return render_template('index.html', booths=booths, items=items)
@@ -26,8 +33,8 @@ def index():
 
 # List of all items
 @app.route('/items/')
-def allItems(booth_id = None):
-    ''' Add comment here ''' #TODO: Add comment
+def allItems(booth_id=None):
+    ''' Add comment here '''
     items = session.query(Items).order_by(asc(Items.name))
     return render_template('items.html', items=items)
 
@@ -36,23 +43,22 @@ def allItems(booth_id = None):
 # Add a booth
 # @app.route('/booth/new/', methods = ['GET', 'POST'])
 # def newBooth():
-#     ''' Add comment here ''' # TODO: Add comment
-#     pass #TODO: finish code
+#     ''' Add comment here '''
+#     pass  #TODO: finish code
 
 
 # Edit booth
 # @app.route('/booth/booth_id/edit/', methods=['GET', 'POST'])
 # def editBooth():
-#     ''' Add comment here. ''' #TODO: Add comment
-#     pass #TODO: add code
+#     ''' Add comment here. '''
+#     pass  #TODO: add code
 
 
 # Delete booth
 # @app.route('/booth/booth_id/delete/', methods=['GET', 'POST'])
 # def deleteBooth():
-#     ''' Add comment here. ''' #TODO: Add comment
-#     pass #TODO: add code
-
+#     ''' Add comment here. '''
+#     pass  #TODO: add code
 
 
 # Show booth items and info
@@ -65,9 +71,10 @@ def booth(booth_id=None):
 
 # This section contains the routes and fuctions to manage items
 
+
 # Single item view #TODO: this is not working.  No item sent to template?
 @app.route('/booth/<int:booth_id>/<int:item_id>/')
-def item(booth_id=None, item_id = None):
+def item(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     item = session.query(Items).filter_by(id=item_id)
@@ -75,8 +82,8 @@ def item(booth_id=None, item_id = None):
 
 
 # Add item
-@app.route('/booth/<int:booth_id>/new/', methods = ['GET', 'POST'])
-def addItem(booth_id = None):
+@app.route('/booth/<int:booth_id>/new/', methods=['GET', 'POST'])
+def addItem(booth_id=None):
     ''' This function is used to create new items for a booth.'''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     if request.method == 'POST':
@@ -87,16 +94,17 @@ def addItem(booth_id = None):
 
 # Edit item
 @app.route('/booth/<int:booth_id>/<int:item_id>/edit/')
-def editItem(booth_id = None, item_id = None):
+def editItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     if request.method == 'POST':
         pass
     else:
         return render_template('editItem.html', item=item, booth=booth)
 
+
 # Delete item
 @app.route('/booth/<int:booth_id>/<int:item_id>/delete/')
-def deleteItem(booth_id = None, item_id = None):
+def deleteItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     return render_template('deleteItem.html')
 

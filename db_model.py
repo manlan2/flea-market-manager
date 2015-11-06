@@ -22,6 +22,7 @@ class Items(Base):
     category = Column(String(80))
     booth_id = Column(Integer, ForeignKey('booths.id'))
     booth = relationship(Booths)
+    #TODO: Add time created to model
 
 
 engine = create_engine('sqlite:///fleamarket.db')

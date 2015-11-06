@@ -3,7 +3,10 @@
 -- using the following commands:
 --
 -- `sqlite3 fleamarket.db`
--- `.import test_data.sql`
+-- `.read test_data.sql`
+-- TODO: add time created to each items
+-- TODO: add picture link for each items
+-- TODO: add picture link for each booth
 
 -- Booths
 INSERT INTO booths (name) VALUES ("Brenda's Small Treasures");
