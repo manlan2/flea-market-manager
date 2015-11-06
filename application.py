@@ -38,6 +38,12 @@ def allItems(booth_id=None):
     items = session.query(Items).order_by(asc(Items.name))
     return render_template('items.html', items=items)
 
+
+# Contact page
+@app.route('/contact/')
+def contact():
+    return render_template('contact.html')
+
 # This section contains the routes and functions to manage booths
 
 # Add a booth

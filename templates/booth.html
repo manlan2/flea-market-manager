@@ -1,15 +1,18 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>Booth Page for {{ booth.name }}</h1>
-<a href="{{ url_for('addItem', booth_id=booth.id)}}">New Item</a>
+<h1>{{ booth.name }}</h1>
+<a href="{{ url_for('addItem', booth_id=booth.id)}}" class="btn btn-success">New Item</a>
+<ul class="list-unstyled">
+  {% for item in items %}
+  <li>
+    <h3>{{item.name}}</h3>
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }}</p>
+    <a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-primary">Edit</a>
+    <a href="{{ url_for('deleteItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-danger">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
 
-{% for item in items %}
-<h3>{{item.name}}</h3>
-<p>{{ item.description }}</p>
-<p>{{ item.price }}</p>
-<a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}">Edit</a>
-<a href="{{ url_for('deleteItem', booth_id=booth.id, item_id=item.id) }}">Delete</a>
-
-{% endfor %}
 
 {% endblock %}

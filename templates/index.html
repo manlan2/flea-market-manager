@@ -7,9 +7,11 @@ TODO: Should have icon size picture for each items
 TODO: Should have icon size picture for each booth -->
 <div class="">
   <h3>Come See These Vendors</h3>
-  {% for booth in booths %}
-  <li><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
-  {% endfor %}
+  <ul class="list-unstyled">
+    {% for booth in booths %}
+    <li><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
+    {% endfor %}
+  </ul>
 </div>
 <div class="">
 
@@ -20,7 +22,7 @@ TODO: Should have icon size picture for each booth -->
   <li><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
   {% endfor %}
 </ul>
-<a href="{{ url_for('allItems') }}">See All Items</a>
+<a href="{{ url_for('allItems') }}" class="btn btn-default">See All Items</a>
 </div>
 
 {% endblock %}
