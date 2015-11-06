@@ -1,9 +1,20 @@
 {% extends 'layout.html' %}
 {% block body %}
 <div class="">
+  <h3>Come See These Vendors</h3>
   {% for booth in booths %}
-  <a href="{{ url_for('booth', booth_id=booth.id) }}"><h3>{{ booth.name }}</h3></a>
+  <li><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
   {% endfor %}
+</div>
+<div class="">
+  <h3>Newest Items Listed</h3>
+  <ul class="list-unstyled">
+
+  {% for item in items %}
+  <li><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
+  {% endfor %}
+</ul>
+
 </div>
 
 {% endblock %}

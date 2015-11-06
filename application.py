@@ -20,7 +20,8 @@ session = DBSession()
 def index():
     ''' Add comment here ''' #TODO: Add comment
     booths = session.query(Booths).order_by(asc(Booths.name))
-    return render_template('index.html', booths=booths)
+    items = session.query(Items).limit(10)
+    return render_template('index.html', booths=booths, items=items)
 
 
 # List of all items
