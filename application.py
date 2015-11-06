@@ -14,7 +14,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
+# Show all booths and link to all items. Home page of app.
 @app.route('/')
 @app.route('/booths/')
 def index():
@@ -22,7 +22,7 @@ def index():
     booths = session.query(Booths).order_by(asc(Booths.name))
     return render_template('index.html', booths=booths)
 
-
+# Show booth items and info
 @app.route('/booth/<int:booth_id>/')
 def booth(booth_id=None):
     ''' Add comment here '''
@@ -30,12 +30,13 @@ def booth(booth_id=None):
     items = session.query(Items).filter_by(booth_id=booth_id)
     return render_template('booth.html', booth=booth, items=items)
 
-@app.route('/add/')
+# Add item
+@app.route('/booth/<int:booth_id>/new/')
 def addItem(booth_id = None):
-    ''' Add comment here '''
+    ''' This function is used to create new items for a booth.'''
     return render_template('addItem.html')
 
-
+# List of all items
 @app.route('/items/')
 def allItems(booth_id = None):
     ''' Add comment here '''
