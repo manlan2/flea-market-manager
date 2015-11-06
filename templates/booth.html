@@ -6,8 +6,9 @@
 {% for item in items %}
 <h3>{{item.name}}</h3>
 <p>{{ item.description }}</p>
-{{ item.price }}
-<p><a href="">Edit</a>  <a href="">Delete</a></p>
+<p>{{ item.price }}</p>
+<a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}">Edit</a>
+<a href="{{ url_for('deleteItem', booth_id=booth.id, item_id=item.id) }}">Delete</a>
 
 {% endfor %}
 
