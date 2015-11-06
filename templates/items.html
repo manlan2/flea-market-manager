@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1>Items Available</h1>
+<ul>
+{% for item in items %}
+<li class="list-unstyled"><h3><a href="#">{{ item.name }}</a></h3></li>
+<p>{{ item.description }}</p>
+{% endfor %}
+</ul>
+{% endblock %}
