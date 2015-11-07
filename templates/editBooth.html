@@ -7,8 +7,7 @@
   <!-- <label for="picture">Picture Link</label>
   <input type="text" name="picture" value=""><br> -->
 
-  <button type="submit" name="button" class="btn btn-primary">Add</button>
-  <a href="{{ url_for('index') }}" class="btn btn-default">Cancel</a>
+  <button type="submit" name="button" class="btn btn-default">Add</button>  <a href="{{ url_for('booth', booth_id=booth.id) }}">Cancel</a>
 
 </form>
 {% endblock %}

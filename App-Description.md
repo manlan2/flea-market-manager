@@ -1,5 +1,5 @@
 # Calalog App Description
-The Franklin Flea Market app will display what is available at the various booths by booth and item by category.  Each booth owner with have the ability to create their booth page and add items to it.  They will have no ability to change or delete any other booth or item.
+The Franklin Flea Market app will display what is available at the various booths by booth and item by category.  Each booth owner with have the ability to create their booth page and add items to it.  They will have no ability to change or delete any other booths or items.
 
 # Catalog App Specification
 * Homepage listing all the booths at the flea market
@@ -16,20 +16,31 @@ The Franklin Flea Market app will display what is available at the various booth
 * Create an admin user that can see and modify all fields.
 * Create an admin page that can add and delete booths and owners.
 * The site should be mobile first and responsive.
-* App uses Flask, Postgres, Bootstrap.
+* App uses Flask, SQLite, Bootstrap.
 * Use errorhandler() decorator to create custom error pages.
 
-# Catalog App TODO's
+# Site Map and Status
+* Main page - open items
+  * List of booths with links       - open items
+  * List of recent items with links - open items
+  * Link to all items page          - complete
+  * Link to add booth               - complete
+* Booth page
+* Add booth page
+* Edit booth page
+* Delete booth page
+* All items page
+* Single item page
+* Add item page
+* Edit item page
+* Delete item page
+* Contact page
 
-* Update README to include installation and use instructions
-* Create database schema
-* Create test data for app
-* Create folder structure
+# Catalog App TODO's
 * Create page list
 * Create routes from page list
 * Add JSON endpoints for each page
 * Add Google OAuth2.0
-* Review Udacity 330 app repo
 
 # Issues to Resolve
 * Sizing unknown images sources of unknown sizes.

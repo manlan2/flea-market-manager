@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!-- TODO: Link to all items
-TODO: Should be single column on small device
-TODO: Should be two column on large screens
-TODO: Should have icon size picture for each items
-TODO: Should have icon size picture for each booth -->
+<!--  TODO: Link to all items
+      TODO: Should be single column on small device
+      TODO: Should be two column on large screens
+      TODO: Should have icon size picture for each items
+      TODO: Should have icon size picture for each booth -->
 <div class="">
   <h3>Come See These Vendors</h3>
   <ul class="list-unstyled">
@@ -22,7 +22,8 @@ TODO: Should have icon size picture for each booth -->
   <li><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
   {% endfor %}
 </ul>
-<a href="{{ url_for('allItems') }}" class="btn btn-default">See All Items</a>
+<a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
+<a href="{{ url_for('addBooth') }}" class="btn btn-default">Create a Booth</a>
 </div>
 
 {% endblock %}

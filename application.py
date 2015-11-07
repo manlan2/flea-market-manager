@@ -47,10 +47,11 @@ def contact():
 # This section contains the routes and functions to manage booths
 
 # Add a booth
-# @app.route('/booth/new/', methods = ['GET', 'POST'])
-# def newBooth():
-#     ''' Add comment here '''
-#     pass  #TODO: finish code
+#TODO: finish code
+@app.route('/booth/new/', methods = ['GET', 'POST'])
+def addBooth():
+    ''' Add comment here '''
+    return render_template('addbooth.html')
 
 
 # Edit booth
