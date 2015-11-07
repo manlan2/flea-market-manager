@@ -1,29 +1,30 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!--  TODO: Link to all items
-      TODO: Should be single column on small device
+<!--  TODO: Should be single column on small device
       TODO: Should be two column on large screens
       TODO: Should have icon size picture for each items
       TODO: Should have icon size picture for each booth -->
+
+<div class="">
+  <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
+  <a href="{{ url_for('addBooth') }}" class="btn btn-default">Create a Booth</a>
+</div>
 <div class="">
   <h3>Come See These Vendors</h3>
   <ul class="list-unstyled">
     {% for booth in booths %}
-    <li><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
+    <li><img src="{{ booth.image }}" alt="" /><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
     {% endfor %}
   </ul>
 </div>
+    
 <div class="">
-
   <h3>Newest Items Listed</h3>
-  <ul class="list-unstyled">
-
-  {% for item in items %}
-  <li><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
-  {% endfor %}
-</ul>
-<a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
-<a href="{{ url_for('addBooth') }}" class="btn btn-default">Create a Booth</a>
+    <ul class="list-unstyled">
+      {% for item in items %}
+      <li><img src="{{ item.image }}" alt="" class="img-thumbnail"/><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
+      {% endfor %}
+    </ul>
 </div>
 
 {% endblock %}

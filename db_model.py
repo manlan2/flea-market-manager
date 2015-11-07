@@ -10,6 +10,9 @@ class Booths(Base):
     __tablename__ = 'booths'
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
+    image = Column(String(250))
+    email = Column(String(250))
+    phone = Column(String(16))
 
 
 
@@ -22,7 +25,7 @@ class Items(Base):
     category = Column(String(80))
     booth_id = Column(Integer, ForeignKey('booths.id'))
     booth = relationship(Booths)
-    #TODO: Add time created to model
+    image = Column(String(250))
 
 
 engine = create_engine('sqlite:///fleamarket.db')

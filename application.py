@@ -23,11 +23,10 @@ session = DBSession()
 
 # Show all booths and link to all items. Home page of app.
 @app.route('/')
-@app.route('/booths/')
 def index():
     ''' Add comment here '''
     booths = session.query(Booths).order_by(asc(Booths.name))
-    items = session.query(Items).limit(10)
+    items = session.query(Items).order_by(Items.id.desc()).limit(10)
     return render_template('index.html', booths=booths, items=items)
 
 
