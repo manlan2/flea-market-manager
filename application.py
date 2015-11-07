@@ -40,9 +40,9 @@ def allItems(booth_id=None):
 
 
 # Contact page
-@app.route('/contact/')
-def contact():
-    return render_template('contact.html')
+@app.route('/about/')
+def about():
+    return render_template('about.html')
 
 # This section contains the routes and functions to manage booths
 

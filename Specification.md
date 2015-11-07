@@ -26,6 +26,7 @@ The Franklin Flea Market app will display what is available at the various booth
   * Link to all items page          - complete
   * Link to add booth               - complete
 * Booth page
+  * 
 * Add booth page
 * Edit booth page
 * Delete booth page
