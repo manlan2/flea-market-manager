@@ -1,5 +1,14 @@
 {% extends 'layout.html' %}
 {% block body %}
+<!-- TODO: add pictures to item listing
+     FIXME: edit page link not working
+     TODO: add some styling
+     TODO: need to add contact info
+     TODO: need to add picture
+     TODO: need to add edit booth info button
+     TODO: need to add booth delete button
+     TODO: need to link each item to signle item page
+-->
 <h1>{{ booth.name }}</h1>
 <a href="{{ url_for('addItem', booth_id=booth.id)}}" class="btn btn-success">New Item</a>
 <ul class="list-unstyled">
