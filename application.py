@@ -11,6 +11,7 @@ from db_model import Base, Items, Booths
 
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 
 
 # Connect to database and create session
@@ -50,7 +51,14 @@ def about():
 @app.route('/booth/new/', methods = ['GET', 'POST'])
 def addBooth():
     ''' Add comment here '''
-    return render_template('addbooth.html')
+    if request.method == 'POST':
+        newBooth = Booths(name=request.form['name'], email=request.form['email'], phone=request.form['phone'], image=request.form['image'])
+        session.add(newBooth)
+        flash('New booth for %s successfully created!' % newBooth.name)
+        session.commit()
+        return redirect(url_for('index'))
+    else:
+        return render_template('addbooth.html')
 
 
 # Edit booth
