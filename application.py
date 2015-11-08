@@ -47,32 +47,56 @@ def about():
 # This section contains the routes and functions to manage booths
 
 # Add a booth
-#TODO: finish code
 @app.route('/booth/new/', methods = ['GET', 'POST'])
 def addBooth():
     ''' Add comment here '''
     if request.method == 'POST':
         newBooth = Booths(name=request.form['name'], email=request.form['email'], phone=request.form['phone'], image=request.form['image'])
         session.add(newBooth)
-        flash('New booth for %s successfully created!' % newBooth.name)
         session.commit()
+        flash('New booth for %s successfully created!' % newBooth.name)
         return redirect(url_for('index'))
     else:
         return render_template('addbooth.html')
 
 
 # Edit booth
-# @app.route('/booth/booth_id/edit/', methods=['GET', 'POST'])
-# def editBooth():
-#     ''' Add comment here. '''
-#     pass  #TODO: add code
+@app.route('/booth/<int:booth_id>/edit/', methods=['GET', 'POST'])
+def editBooth(booth_id=None):
+    ''' Add comment here. '''
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            booth.name = request.form['name']
+        if request.form['email']:
+            booth.email = request.form['email']
+        if request.form['phone']:
+            booth.phone = request.form['phone']
+        if request.form['image']:
+            booth.image = request.form['image']
+        session.add(booth)
+        session.commit()
+        flash('Booth information for %s successfully edited' % booth.name)
+        return redirect(url_for('index'))
+    else:
+        return render_template('editBooth.html', booth=booth)
 
 
 # Delete booth
-# @app.route('/booth/booth_id/delete/', methods=['GET', 'POST'])
-# def deleteBooth():
-#     ''' Add comment here. '''
-#     pass  #TODO: add code
+@app.route('/booth/<int:booth_id>/delete/', methods=['GET', 'POST'])
+def deleteBooth(booth_id=None):
+    ''' Add comment here. '''
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    if request.method == 'POST':
+        if request.form['name'] == booth.name:
+            session.delete(booth)
+            session.commit()
+            flash('%s successfully deleted!' % booth.name)
+            return redirect(url_for('index'))
+        else:
+            flash('Name did not match.  Try again or cancel.')
+            return render_template('deleteBooth.html', booth=booth)
+    return render_template('deleteBooth.html', booth=booth)
 
 
 # Show booth items and info

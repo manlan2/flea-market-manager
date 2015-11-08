@@ -1,13 +1,17 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>Add Booth</h1>
+<!-- TODO: This page needs styles. -->
+<h1>Delete Booth {{ booth.name }}?</h1>
+<p>
+  Are you sure you want to delete this booth?<br>
+  Enter the booth name and hit delete...or hit cancel.
+</p>
 <form class="" action="#" method="post">
   <label for="name">Name</label>
   <input type="text" name="name" value=""><br>
-  <!-- <label for="picture">Picture Link</label>
-  <input type="text" name="picture" value=""><br> -->
 
-  <button type="submit" name="button" class="btn btn-default">Add</button>  <a href="{{ url_for('booth', booth_id=booth.id) }}">Cancel</a>
+  <button type="submit" name="button" class="btn btn-danger">Delete</button>
+  <a href="{{ url_for('booth', booth_id=booth.id) }}" class="btn btn-default">Cancel</a>
 
 </form>
 {% endblock %}
