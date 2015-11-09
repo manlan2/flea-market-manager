@@ -1,19 +1,20 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>Edit Item for {{ booth.name }}</h1>
+<h1>Edit {{ item.name }} for {{ booth.name}}</h1>
 <form class="" action="#" method="post">
   <label for="name">Name</label>
-  <input type="text" name="name" value="item.name"><br>
+  <input type="text" name="name"><br>
   <label for="description">Description</label>
-  <textarea name="description">{{item.description}}</textarea><br>
+  <textarea name="description"></textarea><br>
   <label for="price">Price</label>
-  <input type="text" name="price" value="item.price"><br>
+  <input type="text" name="price"><br>
   <label for="category">Category</label>
-  <input type="text" name="category" value="item.category"><br>
-  <!-- <label for="picture">Picture Link</label>
-  <input type="text" name="picture" value=""><br> -->
+  <input type="text" name="category"><br>
+  <label for="image">Picture Link</label>
+  <input type="text" name="image"><br> 
 
-  <button type="submit" name="button">Submit</button>  <a href="{{ url_for('booth', booth_id=booth.id) }}">Cancel</a>
+  <button type="submit" name="button" class="btn btn-primary">Submit</button>
+  <a href="{{ url_for('booth', booth_id=booth.id) }}" class="btn btn-default">Cancel</a>
 
 </form>
 {% endblock %}

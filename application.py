@@ -115,7 +115,7 @@ def booth(booth_id=None):
 def item(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
-    item = session.query(Items).filter_by(id=item_id)
+    item = session.query(Items).filter_by(id=item_id).one()
     return render_template('item.html', booth=booth, item=item)
 
 
@@ -135,7 +135,7 @@ def addItem(booth_id=None):
 
 
 # Edit item
-@app.route('/booth/<int:booth_id>/<int:item_id>/edit/')
+@app.route('/booth/<int:booth_id>/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
@@ -153,25 +153,29 @@ def editItem(booth_id=None, item_id=None):
             item.image=request.form['image']
         session.add(item)
         session.commit()
-        flash('%s successfully updated!' & item.name)
+        flash('%s successfully updated!' % item.name)
         return redirect(url_for('booth', booth_id=booth.id))
     else:
         return render_template('editItem.html', item=item, booth=booth)
 
 
 # Delete item
-@app.route('/booth/<int:booth_id>/<int:item_id>/delete/')
+@app.route('/booth/<int:booth_id>/<int:item_id>/delete/', methods=['GET', 'POST'])
 def deleteItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     item = session.query(Items).filter_by(id=item_id).one()
     if request.method == 'POST':
-        session.delete(item)
-        session.commit()
-        flash('%s successfully deleted!')
-        return redirect(url_for('booth', booth_id=booth.id))
+        if request.form['name'] == item.name:
+            session.delete(item)
+            session.commit()
+            flash('%s successfully deleted!' % item.name)
+            return redirect(url_for('booth', booth_id=booth.id))
+        else:
+            flash('Name did not match. Try again or cancel.')
+            return redirect(url_for('deleteItem', booth_id=booth.id, item_id=item.id))
     else:
-        return render_template('deleteItem.html')
+        return render_template('deleteItem.html', booth=booth, item=item)
 
 
 # JSON API

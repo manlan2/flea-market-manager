@@ -26,7 +26,8 @@
 <ul class="list-unstyled">
   {% for item in items %}
   <li>
-    <h3>{{item.name}}</h3>
+    <a href="{{ url_for('item', booth_id=booth.id, item_id=item.id) }}"><h3>{{item.name}}</h3></a>
+    <img src="{{ item.image }}" alt="">
     <p>{{ item.description }}</p>
     <p>{{ item.price }}</p>
     <a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-primary">Edit</a>

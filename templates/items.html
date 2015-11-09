@@ -3,8 +3,13 @@
 <h1>Items Available</h1>
 <ul>
 {% for item in items %}
-<li class="list-unstyled"><h3><a href="#">{{ item.name }}</a></h3></li>
-<p>{{ item.description }}</p>
+<li class="list-unstyled">
+  <img src="{{ item.image }}" alt="">
+  <h4><a href="#">{{ item.name }}</a></h4>
+  <p>{{ item.description }}</p>
+  <p>{{ item.price }}</p>
+  <p>Category: {{ item.category }}</p>
+</li>
 {% endfor %}
 </ul>
 {% endblock %}
