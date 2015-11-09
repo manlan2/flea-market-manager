@@ -125,7 +125,11 @@ def addItem(booth_id=None):
     ''' This function is used to create new items for a booth.'''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     if request.method == 'POST':
-        pass
+        item = Items(name=request.form['name'], description=request.form['description'], price=request.form['price'], category=request.form['category'], booth_id=booth.id, image=request.form['image'])
+        session.add(item)
+        session.commit()
+        flash('Items successfully add to %s!' % booth.name)
+        return redirect(url_for('booth', booth_id=booth.id))
     else:
         return render_template('addItem.html', booth=booth)
 
@@ -134,8 +138,23 @@ def addItem(booth_id=None):
 @app.route('/booth/<int:booth_id>/<int:item_id>/edit/')
 def editItem(booth_id=None, item_id=None):
     ''' Add comment here '''
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    item = session.query(Items).filter_by(id=item_id).one()
     if request.method == 'POST':
-        pass
+        if request.form['name']:
+            item.name = request.form['name']
+        if request.form['description']:
+            item.description = request.form['description']
+        if request.form['price']:
+            item.price = request.form['price']
+        if request.form['category']:
+            item.category = request.form['category']
+        if request.form['image']:
+            item.image=request.form['image']
+        session.add(item)
+        session.commit()
+        flash('%s successfully updated!' & item.name)
+        return redirect(url_for('booth', booth_id=booth.id))
     else:
         return render_template('editItem.html', item=item, booth=booth)
 
@@ -144,7 +163,15 @@ def editItem(booth_id=None, item_id=None):
 @app.route('/booth/<int:booth_id>/<int:item_id>/delete/')
 def deleteItem(booth_id=None, item_id=None):
     ''' Add comment here '''
-    return render_template('deleteItem.html')
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    item = session.query(Items).filter_by(id=item_id).one()
+    if request.method == 'POST':
+        session.delete(item)
+        session.commit()
+        flash('%s successfully deleted!')
+        return redirect(url_for('booth', booth_id=booth.id))
+    else:
+        return render_template('deleteItem.html')
 
 
 # JSON API
