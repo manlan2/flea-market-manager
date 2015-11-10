@@ -11,7 +11,7 @@ from db_model import Base, Items, Booths
 
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+
 
 
 # Connect to database and create session
@@ -51,7 +51,10 @@ def about():
 def addBooth():
     ''' Add comment here '''
     if request.method == 'POST':
-        newBooth = Booths(name=request.form['name'], email=request.form['email'], phone=request.form['phone'], image=request.form['image'])
+        newBooth = Booths(name=request.form['name'],
+                          email=request.form['email'],
+                          phone=request.form['phone'],
+                          image=request.form['image'])
         session.add(newBooth)
         session.commit()
         flash('New booth for %s successfully created!' % newBooth.name)
@@ -125,7 +128,12 @@ def addItem(booth_id=None):
     ''' This function is used to create new items for a booth.'''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     if request.method == 'POST':
-        item = Items(name=request.form['name'], description=request.form['description'], price=request.form['price'], category=request.form['category'], booth_id=booth.id, image=request.form['image'])
+        item = Items(name=request.form['name'],
+                     description=request.form['description'],
+                     price=request.form['price'],
+                     category=request.form['category'],
+                     booth_id=booth.id,
+                     image=request.form['image'])
         session.add(item)
         session.commit()
         flash('Items successfully add to %s!' % booth.name)
@@ -178,15 +186,39 @@ def deleteItem(booth_id=None, item_id=None):
         return render_template('deleteItem.html', booth=booth, item=item)
 
 
-# JSON API
+################################## JSON API ####################################
 
-# @app.route('/booth/<int:booth_id>/json/')
-#
-# @app.route('booths/json')
+# All Items Info
+@app.route('/items/json')
+def allItemsJOSN(booth_id=None):
+    ''' Add comment here '''
+    items = session.query(Items).order_by(asc(Items.name)).all()
+    return jsonify(items=[i.serialize for i in items])
+
+# Booth Info
+@app.route('/booth/<int:booth_id>/json')
+def boothJSON(booth_id=None):
+    ''' Add comment here '''
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    items = session.query(Items).filter_by(booth_id=booth_id)
+    return jsonify(items=[i.serialize for i in items])
+
+
+# Item Info
+@app.route('/booth/<int:booth_id>/<int:item_id>/json')
+def itemJSON(booth_id=None, item_id=None):
+    ''' Add comment here '''
+    booth = session.query(Booths).filter_by(id=booth_id).one()
+    item = session.query(Items).filter_by(id=item_id).one()
+    return jsonify(item=item.serialize)
+
+
+############################### Login Functions ################################
 
 @app.route('/login/')
 def login():
     return render_template('login.html')
 
 if __name__ == '__main__':
+    app.secret_key = 'secret_key'
     app.run(debug='True', host='0.0.0.0', port=8000)
