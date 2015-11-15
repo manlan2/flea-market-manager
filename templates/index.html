@@ -17,12 +17,12 @@
     {% endfor %}
   </ul>
 </div>
-    
+
 <div class="">
   <h3>Newest Items Listed</h3>
     <ul class="list-unstyled">
       {% for item in items %}
-      <li><img src="{{ item.image }}" alt="" class="img-thumbnail"/><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
+      <li><img src="{{ item.image }}" alt="" class="img-thumbnail"/>  <a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
       {% endfor %}
     </ul>
 </div>

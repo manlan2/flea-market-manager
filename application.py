@@ -5,9 +5,12 @@ from flask import redirect
 from flask import jsonify
 from flask import url_for
 from flask import flash
+from flask import session as login_session
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from db_model import Base, Items, Booths
+import random
+import string
 
 
 app = Flask(__name__)
@@ -217,7 +220,13 @@ def itemJSON(booth_id=None, item_id=None):
 
 @app.route('/login/')
 def login():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+    login_session['state'] = state
+    # return render_template('login.html')
     return render_template('login.html')
+
+################################################################################
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
