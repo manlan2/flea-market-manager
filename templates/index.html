@@ -2,8 +2,7 @@
 {% block body %}
 <!--  TODO: Should be single column on small device
       TODO: Should be two column on large screens
-      TODO: Should have icon size picture for each items
-      TODO: Should have icon size picture for each booth -->
+-->
 
 <div class="">
   <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
@@ -13,7 +12,7 @@
   <h3>Come See These Vendors</h3>
   <ul class="list-unstyled">
     {% for booth in booths %}
-    <li><img src="{{ booth.image }}" alt="" /><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
+    <li><img src="{{ booth.image }}" alt="" class="img-thumbnail" /><a href="{{ url_for('booth', booth_id=booth.id) }}">{{ booth.name }}</a></li>
     {% endfor %}
   </ul>
 </div>

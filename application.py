@@ -6,6 +6,7 @@ from flask import jsonify
 from flask import url_for
 from flask import flash
 from flask import session as login_session
+from flask import make_response
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from db_model import Base, Items, Booths, Owner
@@ -15,7 +16,6 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import json
-from flask import make_response
 import requests
 
 
@@ -25,7 +25,6 @@ app = Flask(__name__)
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 # APPLICATION_NAME = "Flea Market App"
-
 
 
 # Connect to database and create session
@@ -60,8 +59,9 @@ def about():
 
 # This section contains the routes and functions to manage booths
 
+
 # Add a booth
-@app.route('/booth/new/', methods = ['GET', 'POST'])
+@app.route('/booth/new/', methods=['GET', 'POST'])
 def addBooth():
     ''' Add comment here '''
     if request.method == 'POST':
@@ -124,10 +124,10 @@ def booth(booth_id=None):
     items = session.query(Items).filter_by(booth_id=booth_id)
     return render_template('booth.html', booth=booth, items=items)
 
+
 # This section contains the routes and fuctions to manage items
 
 
-# Single item view #TODO: this is not working.  No item sent to template?
 @app.route('/booth/<int:booth_id>/<int:item_id>/')
 def item(booth_id=None, item_id=None):
     ''' Add comment here '''
@@ -157,7 +157,7 @@ def addItem(booth_id=None):
 
 
 # Edit item
-@app.route('/booth/<int:booth_id>/<int:item_id>/edit/', methods = ['GET', 'POST'])
+@app.route('/booth/<int:booth_id>/<int:item_id>/edit/', methods=['GET', 'POST'])
 def editItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
@@ -172,7 +172,7 @@ def editItem(booth_id=None, item_id=None):
         if request.form['category']:
             item.category = request.form['category']
         if request.form['image']:
-            item.image=request.form['image']
+            item.image = request.form['image']
         session.add(item)
         session.commit()
         flash('%s successfully updated!' % item.name)
@@ -200,7 +200,7 @@ def deleteItem(booth_id=None, item_id=None):
         return render_template('deleteItem.html', booth=booth, item=item)
 
 
-################################## JSON API ####################################
+################################## JSON API ###################################
 
 # All Items Info
 @app.route('/items/json')
@@ -208,6 +208,7 @@ def allItemsJOSN(booth_id=None):
     ''' Add comment here '''
     items = session.query(Items).order_by(asc(Items.name)).all()
     return jsonify(items=[i.serialize for i in items])
+
 
 # Booth Info
 @app.route('/booth/<int:booth_id>/json')
@@ -227,7 +228,7 @@ def itemJSON(booth_id=None, item_id=None):
     return jsonify(item=item.serialize)
 
 
-############################### Login Functions ################################
+############################## Login Functions ################################
 
 @app.route('/login/')
 def login():
@@ -330,29 +331,28 @@ def gdisconnect():
     print 'User name is: '
     print login_session['username']
     if access_token is None:
- 	print 'Access Token is None'
-    	response = make_response(json.dumps('Current user not connected.'), 401)
-    	response.headers['Content-Type'] = 'application/json'
-    	return response
+        print 'Access Token is None'
+        response = make_response(json.dumps('Current user not connected.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '
     print result
     if result['status'] == '200':
-	del login_session['access_token']
-    	del login_session['gplus_id']
-    	del login_session['username']
-    	del login_session['email']
-    	del login_session['picture']
-    	response = make_response(json.dumps('Successfully disconnected.'), 200)
-    	response.headers['Content-Type'] = 'application/json'
-    	return response
+        del login_session['access_token']
+        del login_session['gplus_id']
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        response = make_response(json.dumps('Successfully disconnected.'), 200)
+        response.headers['Content-Type'] = 'application/json'
+        return response
     else:
-
-    	response = make_response(json.dumps('Failed to revoke token for given user.', 400))
-    	response.headers['Content-Type'] = 'application/json'
-    	return response
+        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
 
 ################################################################################
