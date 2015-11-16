@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-# APPLICATION_NAME = "Flea Market App"
+APPLICATION_NAME = "Flea Market App"
 
 
 # Connect to database and create session
@@ -230,6 +230,7 @@ def itemJSON(booth_id=None, item_id=None):
 
 ############################## Login Functions ################################
 
+# TODO: Clean up this section.  Make login look better.
 @app.route('/login/')
 def login():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -317,13 +318,14 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-    flash("you are now logged in as %s" % login_session['username'])
-    print "done!"
+    flash("You are now logged in as %s" % login_session['username'])
     return output
 
 ################################### Logout #####################################
 
 
+
+# TODO: This should redirect, but it doesn't so fix it!
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session['access_token']
