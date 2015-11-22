@@ -166,6 +166,7 @@ def getUserId(email):
 
 
 # TODO: This should redirect, but it doesn't so fix it!
+# FIXME: If you logout without being logged in these is an error.
 @app.route('/logout')
 def logout():
     access_token = login_session['access_token']
@@ -198,6 +199,9 @@ def logout():
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
+    # else:
+    #     flash('You were not logged in.')
+    #     return redirect(url_for('index'))
 
 
 ################################### Routes ####################################
@@ -309,12 +313,15 @@ def booth(booth_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     items = session.query(Items).filter_by(booth_id=booth_id)
-    return render_template('booth.html', booth=booth, items=items)
+    if 'username' not in login_session:
+        return render_template('public_booth.html', booth=booth, items=items)
+    else:
+        return render_template('booth.html', booth=booth, items=items)
 
 
 # This section contains the routes and fuctions to manage items
 
-
+# View a single item
 @app.route('/booth/<int:booth_id>/<int:item_id>/')
 def item(booth_id=None, item_id=None):
     ''' Add comment here '''
@@ -328,13 +335,21 @@ def item(booth_id=None, item_id=None):
 def addItem(booth_id=None):
     ''' This function is used to create new items for a booth.'''
     booth = session.query(Booths).filter_by(id=booth_id).one()
+
+    if 'username' not in login_session:
+        return redirect('/login')
+
+    if booth.user_id != login_session['user_id']:
+        return "<script>function invalidUser(){alert('You are not authorizes to add items to this booth. Please create a new booth.');}</script><body onload='invalidUser()'>"
+
     if request.method == 'POST':
         item = Items(name=request.form['name'],
                      description=request.form['description'],
                      price=request.form['price'],
                      category=request.form['category'],
                      booth_id=booth.id,
-                     image=request.form['image'])
+                     image=request.form['image'],
+                     user_id = booth.user_id)
         session.add(item)
         session.commit()
         flash('Items successfully add to %s!' % booth.name)
@@ -349,6 +364,13 @@ def editItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     item = session.query(Items).filter_by(id=item_id).one()
+
+    if 'username' not in login_session:
+        return redirect('/login')
+
+    if booth.user_id != login_session['user_id']:
+        return "<script>function invalidUser(){alert('You are not authorizes to edit items for this booth. Please create a new booth.');}</script><body onload='invalidUser()'>"
+
     if request.method == 'POST':
         if request.form['name']:
             item.name = request.form['name']
@@ -374,6 +396,13 @@ def deleteItem(booth_id=None, item_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     item = session.query(Items).filter_by(id=item_id).one()
+
+    if 'username' not in login_session:
+        return redirect('/login')
+
+    if booth.user_id != login_session['user_id']:
+        return "<script>function invalidUser(){alert('You are not authorizes to delete items from this booth. Please create a new booth.');}</script><body onload='invalidUser()'>"
+
     if request.method == 'POST':
         if request.form['name'] == item.name:
             session.delete(item)
