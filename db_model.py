@@ -6,14 +6,13 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 
-class Owner(Base):
-    __tablename__ = 'owner'
+class User(Base):
+    __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
-
 
 
 class Booths(Base):
@@ -24,8 +23,8 @@ class Booths(Base):
     image = Column(String(250))
     email = Column(String(250))
     phone = Column(String(16))
-    owner_id = Column(Integer, ForeignKey('owner.id'))
-    owner = relationship(Owner)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
@@ -36,9 +35,8 @@ class Booths(Base):
             'image': self.image,
             'email': self.email,
             'phone': self.phone,
-            'owner_id': self.owner_id
+            'user_id': self.user_id
         }
-
 
 
 class Items(Base):
@@ -52,9 +50,8 @@ class Items(Base):
     image = Column(String(250))
     booth_id = Column(Integer, ForeignKey('booths.id'))
     booths = relationship(Booths)
-    owner_id = Column(Integer, ForeignKey('owner.id'))
-    owner = relationship(Owner)
-
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
@@ -67,7 +64,7 @@ class Items(Base):
             'category': self.category,
             'booth_id': self.booth_id,
             'image': self.image,
-            'owner_id': self.owner_id
+            'user_id': self.user_id
         }
 
 
