@@ -220,7 +220,7 @@ def index():
 
 # List of all items
 @app.route('/items/')
-def allItems(booth_id=None):
+def allItems():
     ''' Add comment here '''
     items = session.query(Items).order_by(asc(Items.name))
     return render_template('items.html', items=items)
