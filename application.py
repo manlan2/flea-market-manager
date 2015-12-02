@@ -171,6 +171,7 @@ def getUserId(email):
 def logout():
     try:
         access_token = login_session['access_token']
+        #FIXME: I think these lines should come out.
         print 'In gdisconnect access token is %s', access_token
         print 'User name is: '
         print login_session['username']
