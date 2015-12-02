@@ -199,7 +199,7 @@ def logout():
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
-    # else:
+    # else: FIXME: Need to prevent error if trying to logout without being logged in.
     #     flash('You were not logged in.')
     #     return redirect(url_for('index'))
 
@@ -313,7 +313,8 @@ def booth(booth_id=None):
     ''' Add comment here '''
     booth = session.query(Booths).filter_by(id=booth_id).one()
     items = session.query(Items).filter_by(booth_id=booth_id)
-    if 'username' not in login_session:
+    owner = getUserInfo(booth.user_id)
+    if 'username' not in login_session or owner.id != login_session['user_id']:
         return render_template('public_booth.html', booth=booth, items=items)
     else:
         return render_template('booth.html', booth=booth, items=items)
