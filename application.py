@@ -33,6 +33,17 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+########################## Database Helper Functions ##########################
+
+def categories():
+    items = session.query(Items)
+    cat_list = []
+    for item in items:
+        if item not in cat_list:
+            cat_list.append(item.category)
+    cat_list= sorted(list(set(cat_list)))
+    return cat_list
+
 
 ############################## Login Functions ################################
 
@@ -210,10 +221,17 @@ def index():
     ''' Add comment here '''
     booths = session.query(Booths).order_by(asc(Booths.name))
     items = session.query(Items).order_by(Items.id.desc()).limit(10)
+    cats = categories()
+    for cat in cats:
+        print cat
     if 'username' not in login_session:
-        return render_template('public_index.html', booths=booths, items=items)
+        return render_template('public_index.html', booths=booths,
+                                                    items=items,
+                                                    cats=cats)
     else:
-        return render_template('index.html', booths=booths, items=items)
+        return render_template('index.html', booths=booths,
+                                             items=items,
+                                             cats=cats)
 
 
 # List of all items
@@ -222,6 +240,14 @@ def allItems():
     ''' Add comment here '''
     items = session.query(Items).order_by(asc(Items.name))
     return render_template('items.html', items=items)
+
+
+# List of all items in category
+@app.route('/items/<category>')
+def categoryItems(category=None):
+    ''' Add comment here '''
+    items = session.query(Items).filter_by(category=category).order_by(asc(Items.name))
+    return render_template('category_items.html', items=items, category=category)
 
 
 # Contact page

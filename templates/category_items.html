@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1>Items Available in {{ category }}</h1>
+<ul>
+{% for item in items %}
+<li class="list-unstyled">
+  <img src="{{ item.image }}" alt="">
+  <h4><a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></h4>
+  <p>{{ item.description }}</p>
+  <p>{{ item.price }}</p>
+  <p>Category: {{ item.category }}</p>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

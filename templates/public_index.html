@@ -24,5 +24,13 @@
       {% endfor %}
     </ul>
 </div>
+<div class="">
+  <h3>Browse by Category</h3>
+  <ul class="list-unstyled">
+    {% for cat in cats %}
+    <li><a href="{{ url_for('categoryItems', category=cat) }}">{{ cat }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}
