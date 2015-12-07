@@ -18,12 +18,12 @@ import httplib2
 import json
 import requests
 
-
+# TODO: This file needs comments
+# TODO: This file needs debug code removed
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Flea Market Application"
 
 
 # Connect to database and create session

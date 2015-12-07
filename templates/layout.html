@@ -8,39 +8,42 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
-<!-- TODO: make flash messages look better. -->
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+<!-- TODO: This page needs styes. -->
 <body>
-  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="{{ url_for('index') }}">Franklin Flea Market</a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="{{ url_for('index') }}">Home</a></li>
-				<li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{ url_for('login') }}">Log In</a></li>
-        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
-{% block body %}{% endblock %}
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+  	<div class="container-fluid">
+  		<div class="navbar-header">
+  			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+  				<span class="sr-only">Toggle navigation</span>
+  				<span class="icon-bar"></span>
+  				<span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+  			</button>
+  			<a class="navbar-brand" href="{{ url_for('index') }}">Franklin Flea Market</a>
+  		</div>
+  		<div class="collapse navbar-collapse" id="navbarCollapse">
+  			<ul class="nav navbar-nav">
+  				<li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+  				<li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('login') }}">Log In</a></li>
+          <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+  			</ul>
+  		</div>
+  </nav>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div class="row">
+    {% block body %}{% endblock %}
+    </div>
+  </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>

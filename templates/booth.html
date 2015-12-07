@@ -1,33 +1,35 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!-- TODO: add some styling
--->
+
+<div class="col-lg-6 col-xs-1">
 <h1><img src="{{booth.image}}" alt="" />{{ booth.name }}</h1>
 
-<div class="">
+<div>
   {{booth.email}}
 </div>
-<div class="">
+<div>
   {{booth.phone}}
 </div>
 
-<p>
-  <a href="{{ url_for('addItem', booth_id=booth.id)}}" class="btn btn-success">New Item</a>
-  <a href="{{ url_for('editBooth', booth_id=booth.id)}}" class="btn btn-default">Edit Booth</a>
-  <a href="{{ url_for('deleteBooth', booth_id=booth.id)}}" class="btn btn-danger">Delete Booth</a>
-</p>
-<ul class="list-unstyled">
-  {% for item in items %}
-  <li>
-    <a href="{{ url_for('item', booth_id=booth.id, item_id=item.id) }}"><h3>{{item.name}}</h3></a>
-    <img src="{{ item.image }}" alt="">
-    <p>{{ item.description }}</p>
-    <p>{{ item.price }}</p>
-    <a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-primary">Edit</a>
-    <a href="{{ url_for('deleteItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-danger">Delete</a>
-  </li>
-  {% endfor %}
-</ul>
-
+  <p>
+    <a href="{{ url_for('addItem', booth_id=booth.id)}}" class="btn btn-success">New Item</a>
+    <a href="{{ url_for('editBooth', booth_id=booth.id)}}" class="btn btn-default">Edit Booth</a>
+    <a href="{{ url_for('deleteBooth', booth_id=booth.id)}}" class="btn btn-danger">Delete Booth</a>
+  </p>
+</div>
+<div class="col-lg-6 col-xs-1">
+  <ul class="list-unstyled">
+    {% for item in items %}
+    <li>
+      <a href="{{ url_for('item', booth_id=booth.id, item_id=item.id) }}"><h3>{{item.name}}</h3></a>
+      <img src="{{ item.image }}" alt="">
+      <p>{{ item.description }}</p>
+      <p>{{ item.price }}</p>
+      <a href="{{ url_for('editItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-primary">Edit</a>
+      <a href="{{ url_for('deleteItem', booth_id=booth.id, item_id=item.id) }}" class="btn btn-danger">Delete</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}

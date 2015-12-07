@@ -1,14 +1,10 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!--  TODO: Should be single column on small device
-      TODO: Should be two column on large screens
--->
 
-<div class="">
-  <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
-  <a href="{{ url_for('addBooth') }}" class="btn btn-default">Create a Booth</a>
+<div class="col-lg-12">
+  <a href="{{ url_for('addBooth') }}" class="btn btn-success">Create a Booth</a>
 </div>
-<div class="">
+<div class="col-lg-4 col-md-4 col-xs-12">
   <h3>Come See These Vendors</h3>
   <ul class="list-unstyled">
     {% for booth in booths %}
@@ -17,15 +13,16 @@
   </ul>
 </div>
 
-<div class="">
+<div class="col-lg-4 col-md-4 col-xs-12">
   <h3>Newest Items Listed</h3>
+  <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
     <ul class="list-unstyled">
       {% for item in items %}
       <li><img src="{{ item.image }}" alt="" class="img-thumbnail"/>  <a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
       {% endfor %}
     </ul>
 </div>
-<div class="">
+<div class="col-lg-4 col-md-4 col-xs-12">
   <h3>Browse by Category</h3>
   <ul class="list-unstyled">
     {% for cat in cats %}

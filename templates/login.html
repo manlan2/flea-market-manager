@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'layout.html' %}
+{% block body %}
 
   <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-  </script>
-
-<script src="//apis.google.com/js/platform.js?onload=start"> </script>
-
-<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-
-
-</head>
-
-
-<body>
-
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+  <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
 
 <!-- GOOGLE PLUS SIGN IN-->
 
 
-          <div id="signInButton">
-          <span class="g-signin"
-            data-scope="openid email"
-            data-clientid="771114832742-02hdlhqdfmhhe7mj8t3tol9jqcs1bsrl.apps.googleusercontent.com"
-            data-redirecturi="postmessage"
-            data-accesstype="offline"
-            data-cookiepolicy="single_host_origin"
-            data-callback="signInCallback"
-            data-approvalprompt="force">
-          </span>
-        </div>
+<div id="signInButton">
+  <span class="g-signin"
+    data-scope="openid email"
+    data-clientid="771114832742-02hdlhqdfmhhe7mj8t3tol9jqcs1bsrl.apps.googleusercontent.com"
+    data-redirecturi="postmessage"
+    data-accesstype="offline"
+    data-cookiepolicy="single_host_origin"
+    data-callback="signInCallback"
+    data-approvalprompt="force">
+  </span>
+</div>
 
 <div id="result"></div>
 
@@ -68,11 +57,5 @@ function signInCallback(authResult) {
 
   }); } }
 </script>
-
-
-
 <!--END GOOGLE PLUS SIGN IN -->
-
-  </body>
-
-  </html>
+{% endblock %}

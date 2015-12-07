@@ -1,15 +1,18 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!-- TODO: Add styles to this page -->
 <h1>Delete {{ item.name }}</h1>
-<p>
-	Are you sure?
-	If you are type the name of the item below.
-</p>
-<form class="" action="#" method="post">
-  <label for="name">Name</label>
-  <input type="text" name="name" value=""><br>
+<div class="alert alert-danger">
+	<p>
+		Are you sure?<br>
+		If so, type the name of the item below.
+	</p>
+</div>
 
+<form class="" action="#" method="post" role="form">
+	<div class="form-group">
+	  <label for="name">Name</label>
+	  <input type="text" name="name" value="" class="form-control"><br>
+	</div>
   <button type="submit" name="button" class="btn btn-danger">Delete</button>
   <a href="{{ url_for('booth', booth_id=booth.id) }}" class="btn btn-default">Cancel</a>
 
