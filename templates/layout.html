@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
-<!-- TODO: This page needs styes. -->
+
 <body>
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
   	<div class="container-fluid">
@@ -44,10 +44,10 @@
     {% block body %}{% endblock %}
     </div>
   </div>
+  <footer class="">
+    <p class="text-muted">&copy; 2015 Larry Tooley</p>
+  </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
-<!-- TODO: need to add a footer
-     TODO: need to add SEO metadata
--->
