@@ -26,7 +26,8 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 
 
-# Connect to database and create session
+################### Connect to database and create session ####################
+
 engine = create_engine('sqlite:///fleamarket.db')
 Base.metadata.bind = engine
 
@@ -43,6 +44,15 @@ def categories():
             cat_list.append(item.category)
     cat_list= sorted(list(set(cat_list)))
     return cat_list
+
+
+# def booths():
+#     result = session.query(Booths).order_by(asc(Booths.name))
+#     return result
+
+
+# def items():
+#     items = session.query(Items)
 
 
 ############################## Login Functions ################################

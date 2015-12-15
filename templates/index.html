@@ -15,7 +15,7 @@
 
 <div class="col-lg-4 col-md-4 col-xs-12">
   <h3>Newest Items Listed</h3>
-  <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a>
+  <a href="{{ url_for('allItems') }}" class="btn btn-primary">See All Items</a><br><br>
     <ul class="list-unstyled">
       {% for item in items %}
       <li><img src="{{ item.image }}" alt="" class="img-thumbnail"/>  <a href="{{ url_for('item', booth_id=item.booth_id, item_id=item.id) }}">{{ item.name }}</a></li>
