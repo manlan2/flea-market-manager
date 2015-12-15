@@ -7,8 +7,9 @@ Code to implement a online flea market management app as part of [Udacity's](htt
 ## Table of Contents
 * [Files](#files)
 * [How To Run](#how-to-run)
-* [Database Set Up and Testing](#database-set-up-and-testing)
+* [Loading Test Data](#loading-test-data)
 * [Python Code Testing](#python-code-testing)
+* [Turning Off Debug Mode](#turning-off-debug-mode)
 
 ## Files
 
@@ -64,7 +65,7 @@ Follow the guide found [here](https://www.udacity.com/wiki/ud197/install-vagrant
 
 [Back to Top](#flea-market)
 
-## Database Set Up and Testing
+## Loading Test Data
 
 To create and test the database, you will need to edit **test_data.sql** and run the following commands **SQLite**:
 
@@ -103,16 +104,43 @@ sqlite> .exit
 As stated in the project specification, you should be able to add, change, and delete existing items and booths as long as you are logged in and the owner of the booth. The owner of the existing booths and items is the user with the id of 1 in the user table.  This is can be set prior to loading the test data by editing line 9 of the **test_data.sql** file.
 
 * Test access to existing items and booths without logging in.
-  *
-  *
+  * On the main page you should not see a green "Create a Booth button".
+
+  * You should not see any buttons on the individual booth or item pages to add, edit, or delete booths or items.
+
+  * Any attempt to access CRUD functionality for any items or booths directly through urls should be routed to the login page.
+
 * Test access logged in as a user without access to the existing items and tables.
-  *
-  *
+  * A green "Create a Booth" button should be visible on the main page.
+
+  * You should not see any buttons on the individual booth or item pages to add, edit, or delete booths or items.
+
+  * Any attempt to access CRUD functionality for any items or booths directly through urls should result in a JavaScript dialog box warning that you do not have rights to those items.
+
+  * You should be able to create a new booth and add, edit, or delete items from that booth.
+
+  * New items should appear at the top of the "Newest Items" list on the main page.
+
 * Test functionality as the owner of the existing items and booths.
-  *
-  *
+  * You should be able to add, edit, or delete items from your existing booths.
+
+  * Any attempt to access CRUD functionality for any items or booths directly through urls should result in a JavaScript dialog box warning that you do not have rights to those items.
+
 * Test for code injection attacks.
-  *
-  * 
+  * Test for HTML injection in text inputs. Should result in raw HTML appearing in the updated or created item. I tested this by changing the name of an item to ```<h1>Bad!</h1>```.
+
+  * Test for JavaScript injection into form elements. Should result in raw JavaScript appearing in the updated or created item. I tested this by changing the description of an items to ```<script>alert('Bad!');</script>```.
+
+  * Test for SQL injection into form elements. Should result in raw SQL appearing in the updated or created item. I tested this by changing the description of an items to ```Robert'); DROP TABLE items;--```.
+
+[Back to Top](#flea-market)
+
+## Turning Off Debug Mode
+
+Prior to deploying the app in a production environment, be sure to turn off the debug mode.
+
+* Go to line 485 the **application.py** file.
+* Delete ```debug='True', ```.
+* Unless otherwise desired, remove ```, port=8000``` as well.
 
 [Back to Top](#flea-market)

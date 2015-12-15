@@ -187,7 +187,6 @@ def getUserId(email):
 
 
 # TODO: This should redirect, but it doesn't so fix it!
-# FIXME: If you logout without being logged in these is an error.
 @app.route('/logout')
 def logout():
     try:
@@ -232,8 +231,6 @@ def index():
     booths = session.query(Booths).order_by(asc(Booths.name))
     items = session.query(Items).order_by(Items.id.desc()).limit(10)
     cats = categories()
-    for cat in cats:
-        print cat
     if 'username' not in login_session:
         return render_template('public_index.html', booths=booths,
                                                     items=items,
@@ -279,7 +276,8 @@ def addBooth():
         newBooth = Booths(name=request.form['name'],
                           email=request.form['email'],
                           phone=request.form['phone'],
-                          image=request.form['image'])
+                          image=request.form['image'],
+                          user_id=login_session['user_id'])
         session.add(newBooth)
         session.commit()
         flash('New booth for %s successfully created!' % newBooth.name)
