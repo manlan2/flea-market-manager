@@ -22,8 +22,8 @@
 <div class="col-lg-4 col-md-4 col-xs-12">
   <h3>Browse by Category</h3>
   <ul class="list-unstyled">
-    {% for cat in cats %}
-    <li><a href="{{ url_for('categoryItems', category=cat) }}">{{ cat }}</a></li>
+    {% for category in categories %}
+    <li><a href="{{ url_for('categoryItems', category=category) }}">{{ category }}</a></li>
     {% endfor %}
   </ul>
 </div>

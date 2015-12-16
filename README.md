@@ -1,4 +1,4 @@
-# Flea Market
+# Flea Market App
 
 Code to implement a online flea market management app as part of [Udacity's](https://www.udacity.com) Full Stack Web Developer Nanodegree.
 
@@ -9,6 +9,7 @@ Code to implement a online flea market management app as part of [Udacity's](htt
 * [How To Run](#how-to-run)
 * [Loading Test Data](#loading-test-data)
 * [Python Code Testing](#python-code-testing)
+* [JSON API](#json-api)
 * [Turning Off Debug Mode](#turning-off-debug-mode)
 
 ## Files
@@ -26,7 +27,7 @@ Code to implement a online flea market management app as part of [Udacity's](htt
 * **test_data.sql** - This file contains test data used to develop the app.
 
 
-[Back to Top](#flea-market)
+[Back to Top](#flea-market-app)
 
 
 ## How To Run
@@ -41,7 +42,7 @@ Follow the guide found [here](https://www.udacity.com/wiki/ud197/install-vagrant
 * Download the ZIP by clicking on the link on the right side of this page.
 * Extract the archive and copy the files to a directory inside the vagrant directory.
 * Open your terminal application if you haven't already and navigate to the directory you copied the files to.
-* Start the app with ``` python application.py ```
+* Start the app with ```python application.py```
 
 **OR**
 
@@ -60,16 +61,16 @@ Follow the guide found [here](https://www.udacity.com/wiki/ud197/install-vagrant
 * And start the app.
 
   ```
-  python application.py
+    python application.py
   ```
 
-[Back to Top](#flea-market)
+[Back to Top](#flea-market-app)
 
 ## Loading Test Data
 
-To create and test the database, you will need to edit **test_data.sql** and run the following commands **SQLite**:
+To create and test the database, you will need to edit **test_data.sql** and run the following commands in **SQLite**:
 
-* In order to modify the exist booths and items, you will need to change line 9 in **test_data.sql** to include your name and the email associated with the Google account you intend to log in with.
+* In order to modify the exist booths and items, you will need to change line 9 in **test_data.sql** to include your name and the email associated with the Google account you intend to log in with or you can delete the line all together and the first account to login will control the existing data.
 
 ```
 INSERT INTO user (name, email, picture) VALUES ("Your Name", "you@somegmail.com", "");
@@ -97,7 +98,7 @@ sqlite> .read test_data.sql
 sqlite> .exit
 ```
 
-[Back to Top](#flea-market)
+[Back to Top](#flea-market-app)
 
 ## Python Code Testing
 
@@ -133,7 +134,16 @@ As stated in the project specification, you should be able to add, change, and d
 
   * Test for SQL injection into form elements. Should result in raw SQL appearing in the updated or created item. I tested this by changing the description of an items to ```Robert'); DROP TABLE items;--```.
 
-[Back to Top](#flea-market)
+[Back to Top](#flea-market-app)
+
+## JSON API
+
+JSON can be retrieved at the following endpoints:
+* ```localhost:8000/items/json```
+* ```localhost:8000/booth/booth_id/json```
+* ```localhost:8000/booth/booth_id/item_id/json```
+
+[Back to Top](#flea-market-app)
 
 ## Turning Off Debug Mode
 
@@ -143,4 +153,4 @@ Prior to deploying the app in a production environment, be sure to turn off the 
 * Delete ```debug='True', ```.
 * Unless otherwise desired, remove ```, port=8000``` as well.
 
-[Back to Top](#flea-market)
+[Back to Top](#flea-market-app)
